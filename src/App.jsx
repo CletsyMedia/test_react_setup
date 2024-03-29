@@ -5,7 +5,7 @@ import ApisDatas from './Components/ApisDatas';
 import Assignment from './Components/Assignment';
 import Mapping from './Components/Mapping';
 import Navbar from './Components/Navbar';
-import SearchFilter from './Pages/SearchFilter';
+import SearchFilter from './Components/SearchFilter';
 
 const routes = createBrowserRouter(
   [
@@ -22,6 +22,7 @@ const App = () => {
   return (
     <div>
       <Navbar/>
+      <SearchFilter />
       <RouterProvider router={routes} />
     </div>
   );
