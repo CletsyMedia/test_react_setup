@@ -8,6 +8,7 @@ const SearchFilter = () => {
   const [searchUser, setSearchUser] = useState("");
   const [likedCount, setLikedCount] = useState(0);
   const [likedUsers, setLikedUsers] = useState([]);
+  const [toggleView, setToggleView] = useState(true); // Initialize toggleView to true
 
   // Log user data whenever userAll changes
   useEffect(() => {
@@ -64,15 +65,26 @@ const SearchFilter = () => {
               <button className="bg-[#1e1e1e] rounded text-[#ccc] py-3 px-8">
                 Liked Users <span className="ml-2">{likedCount}</span>
               </button>
-              <button className="bg-[#1e1e1e] rounded text-[#ccc] py-3 px-8">
+              <button
+                className="bg-[#1e1e1e] rounded text-[#ccc] py-3 px-8"
+                onClick={() => setToggleView((prevToggle) => !prevToggle)} // Toggle the view on button click
+              >
                 Toggle View
               </button>
             </div>
             <div className="flex flex-wrap gap-2 w-3/4">
               {likedUsers.map((username) => (
-                <div key={username} className="text-white py-2 px-4 bg-[#1e1e1e] rounded flex items-center justify-center gap-2">
+                <div
+                  key={username}
+                  className="text-white py-2 px-4 bg-[#1e1e1e] rounded flex items-center justify-center gap-2"
+                >
                   <div>{username}</div>
-                  <div className="text-[14px] hover:text-red-500 cursor-pointer text-center" onClick={() => handleRemoveUser(username)}><LiaTimesSolid /></div>
+                  <div
+                    className="text-[14px] hover:text-red-500 cursor-pointer text-center"
+                    onClick={() => handleRemoveUser(username)}
+                  >
+                    <LiaTimesSolid />
+                  </div>
                 </div>
               ))}
             </div>
@@ -83,47 +95,94 @@ const SearchFilter = () => {
           {userAll.length === 0 && (
             <p className="text-white text-center">No matching users found.</p>
           )}
-
-          <div className="flex flex-wrap items-center justify-center gap-[20px]">
-            {userAll.map((userData) => (
-              <div
-                key={userData.login}
-                className="flex flex-col items-center justify-center w-[200px] max-w-[200px] rounded shadow gap-2 xsm-max:w-[2700px] xsm-max:h-[100%]"
-              >
-                <div className="relative w-[200px] h-[200px] xsm-max:w-[270px] xsm-max:h-[270px]">
-                  <img
-                    src={userData.avatar_url}
-                    alt=""
-                    className="rounded w-full h-full"
-                  />
-                  <div
-                    className="heart absolute top-2 left-2 text-[25px] cursor-pointer"
-                    onClick={() => handleLikeToggle(userData.login)}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill={isLiked(userData.login) ? "red" : "none"}
-                      stroke={isLiked(userData.login) ? "red" : "black"}
+          {/* Toggleable view */}
+          {toggleView ? ( // Render default view if toggleView is true
+            <div className="flex flex-wrap items-center justify-center gap-[20px]">
+              {userAll.map((userData) => (
+                <div
+                  key={userData.login}
+                  className="flex flex-col items-center justify-center w-[200px] max-w-[200px] rounded shadow gap-2 xsm-max:w-[2700px] xsm-max:h-[100%]"
+                >
+                  <div className="relative w-[200px] h-[200px] xsm-max:w-[270px] xsm-max:h-[270px]">
+                    <img
+                      src={userData.avatar_url}
+                      alt=""
+                      className="rounded w-full h-full"
+                    />
+                    <div
+                      className="heart absolute top-2 left-2 text-[25px] cursor-pointer"
+                      onClick={() => handleLikeToggle(userData.login)}
                     >
-                      <path d="M12 4.419c-2.826-5.695-11.999-4.064-11.999 3.27 0 7.27 9.903 10.938 11.999 15.311 2.096-4.373 12-8.041 12-15.311 0-7.327-9.17-8.972-12-3.27" />
-                    </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill={isLiked(userData.login) ? "red" : "none"}
+                        stroke={isLiked(userData.login) ? "red" : "black"}
+                      >
+                        <path d="M12 4.419c-2.826-5.695-11.999-4.064-11.999 3.27 0 7.27 9.903 10.938 11.999 15.311 2.096-4.373 12-8.041 12-15.311 0-7.327-9.17-8.972-12-3.27" />
+                      </svg>
+                    </div>
+                  </div>
+                  <h1 className="text-[#ccc]">{userData.login}</h1>
+                  <a
+                    href={userData.html_url}
+                    rel="noreferrer"
+                    target="_blank"
+                    className="p-2 capitalize bg-blue-700 text-black rounded hover:scale-100  font-semibold"
+                  >
+                    Visit my Github Profile
+                  </a>
+                </div>
+              ))}
+            </div>
+          ) : ( // Rendering alternative view if toggleView is false
+            <div className="flex flex-wrap items-center justify-center gap-[20px]">
+              {userAll.map((userData) => (
+                <div
+                  key={userData.login}
+                  className="flex items-center justify-center w-[300px] max-w-[300px] rounded shadow gap-4 xsm-max:w-[270px] xsm-max:h-[100%]"
+                >
+                  <div className="relative w-[100px] h-[100px] xsm-max:w-[70px] xsm-max:h-[70px]">
+                    <img
+                      src={userData.avatar_url}
+                      alt=""
+                      className="rounded-full w-full h-full"
+                    />
+                  </div>
+                  <div className="px-2 py-10">
+                    <div
+                      className="heart mb-2"
+                      onClick={() => handleLikeToggle(userData.login)}
+                    >
+                      <div className="flex items-center justify-start gap-3">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill={isLiked(userData.login) ? "red" : "none"}
+                          stroke={isLiked(userData.login) ? "red" : "black"}
+                        >
+                          <path d="M12 4.419c-2.826-5.695-11.999-4.064-11.999 3.27 0 7.27 9.903 10.938 11.999 15.311 2.096-4.373 12-8.041 12-15.311 0-7.327-9.17-8.972-12-3.27" className="text-[25px] cursor-pointer" />
+                        </svg>
+                        <h1 className="text-[#ccc] my-2">{userData.login}</h1>
+                      </div>
+                    </div>
+                    <a
+                      href={userData.html_url}
+                      rel="noreferrer"
+                      target="_blank"
+                      className="text-[14px] p-2 capitalize bg-blue-700 text-black rounded hover:scale-100 font-semibold"
+                    >
+                      Visit my Github Profile
+                    </a>
                   </div>
                 </div>
-                <h1 className="text-[#ccc] my-2">{userData.login}</h1>
-                <a
-                  href={userData.html_url}
-                  rel="noreferrer"
-                  target="_blank"
-                  className="p-2 capitalize bg-blue-700 text-white rounded hover:scale-100"
-                >
-                  Visit my Github Profile
-                </a>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>
