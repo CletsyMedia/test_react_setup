@@ -126,6 +126,7 @@ const SearchFilter = () => {
                     </div>
                   </div>
                   <h1 className="text-[#ccc]">{userData.login}</h1>
+                  
                   <a
                     href={userData.html_url}
                     rel="noreferrer"
