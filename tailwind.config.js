@@ -9,7 +9,7 @@ export default {
         Poppins: "'Poppins', sans-serif",
       },
       screens: {
-        'esm-max': { 'max': '469px' },
+        'xsm-max': { 'max': '469px' },
         'sm-max': { 'max': '770px' },
         'md-max': { 'max': '1023px' },
       },
