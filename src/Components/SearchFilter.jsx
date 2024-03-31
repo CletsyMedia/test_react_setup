@@ -50,7 +50,7 @@ const SearchFilter = () => {
 
   return (
     <>
-      <div className="bg flex items-center justify-center  flex-wrap gap-8  bg-gray-800">
+      <div className="bg flex items-center justify-center  flex-wrap gap-8  bg-gray-800 pb-24">
         <div className="flex flex-col items-center justify-center gap-10 w-screen">
           <div className="stick bg-[#080000fa] py-10 w-full flex flex-col items-center justify-center gap-4">
             <div className="flex items-center justify-center gap-4 xsm-max">
