@@ -51,7 +51,7 @@ const SearchFilter = () => {
   return (
     <>
       <div className="bg flex items-center justify-center  flex-wrap gap-8  bg-gray-800">
-        <div className="flex flex-col items-center justify-center gap-10">
+        <div className="flex flex-col items-center justify-center gap-10 w-screen">
           <div className="stick bg-[#080000fa] py-10 w-full flex flex-col items-center justify-center gap-4">
             <div className="flex items-center justify-center gap-4 xsm-max">
               <input
@@ -90,7 +90,7 @@ const SearchFilter = () => {
             </div>
           </div>
 
-          <div></div>
+          {/* <div></div> */}
 
           {userAll.length === 0 && (
             <p className="text-white text-center">No matching users found.</p>
@@ -126,7 +126,7 @@ const SearchFilter = () => {
                     </div>
                   </div>
                   <h1 className="text-[#ccc]">{userData.login}</h1>
-                  
+
                   <a
                     href={userData.html_url}
                     rel="noreferrer"
