@@ -23,6 +23,7 @@ const App = () => {
     <div>
       <Navbar/>
       <SearchFilter />
+      <Assignment />
       <RouterProvider router={routes} />
     </div>
   );
